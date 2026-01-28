@@ -23,21 +23,22 @@ Future<void> initDependencies() async {
 
 // TODO: init auth dependencies
 void _initAuth() {
+  // datasource
   // returning AuthRemoteDataSource
-  serviceLocator.registerFactory<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(serviceLocator()),
-  );
-
-  serviceLocator.registerFactory<AuthRepository>(
-    () => AuthRepositoryImpl(serviceLocator()),
-  );
-
-  serviceLocator.registerFactory(() => UserSignUp(serviceLocator()));
-
-  serviceLocator.registerFactory(() => UserLogin(serviceLocator()));
-
-  // only want one state of AuthBloc all over the app
-  serviceLocator.registerLazySingleton(
-    () => AuthBloc(userSignUp: serviceLocator(), userLogin: serviceLocator()),
-  );
+  serviceLocator
+    ..registerFactory<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(serviceLocator()),
+    )
+    // repository
+    ..registerFactory<AuthRepository>(
+      () => AuthRepositoryImpl(serviceLocator()),
+    )
+    // usecases
+    ..registerFactory(() => UserSignUp(serviceLocator()))
+    ..registerFactory(() => UserLogin(serviceLocator()))
+    // bloc
+    // only want one state of AuthBloc all over the app
+    ..registerLazySingleton(
+      () => AuthBloc(userSignUp: serviceLocator(), userLogin: serviceLocator()),
+    );
 }
