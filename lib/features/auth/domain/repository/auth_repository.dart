@@ -1,7 +1,7 @@
 // abs class, provide base class for concrete subclass to inherit from
 // abs interface class, define a set of methods that classes must implement
 import 'package:blog_app/core/error/failures.dart';
-import 'package:blog_app/features/auth/domain/entities/user.dart';
+import 'package:blog_app/core/common/entities/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 // interface
