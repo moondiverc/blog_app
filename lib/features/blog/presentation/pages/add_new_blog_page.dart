@@ -15,6 +15,7 @@ class AddNewBlogPage extends StatefulWidget {
 class _AddNewBlogPageState extends State<AddNewBlogPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
+  List<String> selectedTopics = [];
 
   @override
   void dispose() {
@@ -70,9 +71,28 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                           .map(
                             (e) => Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: Chip(
-                                label: Text(e),
-                                side: BorderSide(color: AppPallete.borderColor),
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (selectedTopics.contains(e)) {
+                                    selectedTopics.remove(e);
+                                  } else {
+                                    selectedTopics.add(e);
+                                  }
+                                  setState(() {});
+                                },
+                                child: Chip(
+                                  label: Text(e),
+                                  color: selectedTopics.contains(e)
+                                      ? MaterialStatePropertyAll(
+                                          AppPallete.gradient1,
+                                        )
+                                      : null,
+                                  side: selectedTopics.contains(e)
+                                      ? null
+                                      : BorderSide(
+                                          color: AppPallete.borderColor,
+                                        ),
+                                ),
                               ),
                             ),
                           )
